@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PG模拟器 · 导航介绍页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fae8d0 0%, #f5d5b0 50%, #edc8a0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .page-wrap {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* 顶部导航 */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(6px);
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            margin-bottom: 3rem;
+            box-shadow: 0 6px 18px rgba(160, 100, 50, 0.12);
+        }
+
+        .top-nav .brand {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #7a4d2a;
+            letter-spacing: 0.5px;
+        }
+
+        .top-nav .brand span {
+            background: #dba978;
+            color: #fef7ed;
+            padding: 0.15rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #5f3e25;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.3rem 0.2rem;
+            transition: color 0.2s, border-bottom 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: #a7622d;
+            border-bottom-color: #c4874f;
+        }
+
+        /* 卡片通用 */
+        .card {
+            background: #fffffffa;
+            border-radius: 28px;
+            padding: 2.2rem 2.5rem;
+            box-shadow: 0 12px 28px rgba(140, 80, 30, 0.10);
+            margin-bottom: 2.2rem;
+            transition: box-shadow 0.2s;
+            border: 1px solid #f7e4d0;
+        }
+
+        .card:hover {
+            box-shadow: 0 16px 36px rgba(150, 85, 30, 0.13);
+        }
+
+        /* hero 区 */
+        .hero-card {
+            background: #fffffffa;
+            padding: 2.8rem 2.5rem 2.5rem;
+            text-align: center;
+        }
+
+        .hero-card h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            color: #4f321b;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-card h1 a {
+            color: #7a4d2a;
+            text-decoration: none;
+            background: linear-gradient(145deg, #f1dcc8, #e6c9ae);
+            padding: 0.1rem 0.7rem;
+            border-radius: 48px;
+            transition: background 0.2s, box-shadow 0.2s;
+            display: inline-block;
+            box-shadow: 0 2px 6px rgba(160, 90, 40, 0.08);
+        }
+
+        .hero-card h1 a:hover {
+            background: #e2c0a5;
+            box-shadow: 0 4px 12px rgba(150, 80, 30, 0.18);
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: #6f4d2f;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .hero-sub a {
+            color: #a7622d;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 1.5px;
+        }
+
+        /* 三个场景模块 */
+        .scenes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .scene-card {
+            background: #fffffffa;
+            border-radius: 24px;
+            padding: 1.8rem 1.8rem 2rem;
+            border: 1px solid #f7e4d0;
+            box-shadow: 0 8px 18px rgba(140, 70, 25, 0.06);
+        }
+
+        .scene-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #4f321b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scene-card h3::before {
+            content: "·";
+            font-size: 2rem;
+            color: #c4874f;
+            line-height: 1;
+        }
+
+        .scene-card p {
+            color: #573f2c;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 0.9rem;
+        }
+
+        .scene-card .meta-tag {
+            display: inline-block;
+            background: #efdccb;
+            padding: 0.2rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #4d311b;
+            font-weight: 500;
+        }
+
+        /* 说明区 (常见说明 / FAQ 摘要) */
+        .faq-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem 2rem;
+            margin: 1rem 0 0.2rem;
+        }
+
+        .faq-item {
+            flex: 1 1 200px;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #4d2f19;
+            margin-bottom: 0.3rem;
+            font-size: 0.98rem;
+        }
+
+        .faq-item p {
+            color: #5f432b;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .faq-item a {
+            color: #a7622d;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .action-note {
+            background: #f2e2d2;
+            border-radius: 60px;
+            padding: 0.4rem 1.4rem;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #4a311c;
+            margin-top: 0.6rem;
+        }
+
+        /* 底部 */
+        .footer-note {
+            text-align: center;
+            color: #7f5d3f;
+            font-size: 0.9rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e7cfba;
+            margin-top: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-note a {
+            color: #7a4d2a;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 860px) {
+            .scenes-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero-card h1 {
+                font-size: 2.2rem;
+            }
+            .card {
+                padding: 1.8rem 1.5rem;
+            }
+            .top-nav {
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1rem 1.5rem;
+                border-radius: 40px;
+            }
+            .nav-links {
+                gap: 1.2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .scenes-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-card h1 {
+                font-size: 1.8rem;
+            }
+            body {
+                padding: 1rem 0.6rem;
+            }
+            .faq-summary {
+                flex-direction: column;
+            }
+            .top-nav .brand span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="brand">PG 模拟器 <span>导航</span></div>
+        <ul class="nav-links">
+            <li><a href="#intro">介绍</a></li>
+            <li><a href="#scenes">场景</a></li>
+            <li><a href="#faq">说明</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero 介绍区 -->
+    <div class="card hero-card" id="intro">
+        <h1>
+            <a href="https://www2-pg.com" target="_blank" rel="noopener noreferrer">PG模拟器</a>
+        </h1>
+        <div class="hero-sub">
+            面向日常查询与对照的轻量工具集合。在游戏机制验证、数值对照、策略推演等场景中，
+            <a href="https://www2-pg.com" target="_blank" rel="noopener noreferrer">PG模拟器</a>
+            提供了一种结构化的参考方式，无需安装即可在浏览器中直接使用。
+        </div>
+    </div>
+
+    <!-- 三个场景模块 -->
+    <div class="scenes-grid" id="scenes">
+        <div class="scene-card">
+            <h3>机制对照</h3>
+            <p>快速查阅特定回合内的触发逻辑、概率区间与状态变更。适合在查阅文档或社群讨论时并排放置，逐项比对。</p>
+            <span class="meta-tag">参数 · 阈值</span>
+        </div>
+        <div class="scene-card">
+            <h3>延伸阅读</h3>
+            <p>将<a href="https://www2-pg.com" target="_blank" rel="noopener noreferrer">PG模拟器</a>作为辅助窗口，配合其他资料进行横向对照。尤其适合梳理多版本差异或验证常见说法。</p>
+            <span class="meta-tag">对照 · 验证</span>
+        </div>
+        <div class="scene-card">
+            <h3>日常查询</h3>
+            <p>在需要快速回忆某项数据或流程时直接使用，避免反复翻阅静态表格。问答式的交互结构降低了理解成本。</p>
+            <span class="meta-tag">轻量 · 即时</span>
+        </div>
+    </div>
+
+    <!-- 常见说明 + FAQ 摘要 -->
+    <div class="card" id="faq">
+        <h2 style="font-size:1.4rem; font-weight:600; color:#4f321b; margin-bottom:0.5rem;">常见说明</h2>
+        <p style="color:#5f432b; margin-bottom:1.2rem; max-width:700px; line-height:1.7;">
+            以下整理了几条使用中常被提及的要点，更多细节可结合 <a href="https://www2-pg.com" target="_blank" rel="noopener noreferrer">PG模拟器</a> 页面内说明一并阅读。
+        </p>
+        <div class="faq-summary">
+            <div class="faq-item">
+                <strong>数据基准</strong>
+                <p>所有输出均基于公开可查的规则与数值列表，模拟器本身不修改或注入额外条件。建议以版本更新日志为准。</p>
+            </div>
+            <div class="faq-item">
+                <strong>场景边界</strong>
+                <p>模拟结果不代表实际对局中的全部变量，尤其受网络延迟、本地配置等外部因素影响时，可将其视为参考区间。</p>
+                <p style="margin-top:0.5rem;"><a href="https://www2-pg.com" target="_blank" rel="noopener noreferrer">PG模拟器</a> 已预设常见边界条件。</p>
+            </div>
+            <div class="faq-item">
+                <strong>延伸参考</strong>
+                <p>如需更完整的上下文，建议配合官方文档或社区对照表使用。本页仅做导航与快速索引。</p>
+                <div class="action-note">FAQ 摘要 · 持续整理</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer-note">
+        <p>内容基于公开信息整理 · 模拟器页面可直接在浏览器中运行</p>
+        <p style="margin-top:0.3rem; font-size:0.85rem; opacity:0.8;">
+            <a href="https://www2-pg.com" target="_blank" rel="noopener noreferrer">PG模拟器</a>
+            · 适用于日常查询与对照场景
+        </p>
+    </div>
+
+</div>
+</body>
+</html>
